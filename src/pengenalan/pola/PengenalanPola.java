@@ -261,7 +261,7 @@ public class PengenalanPola {
                 
             }
             
-            double dataTestinClass[][] = new double[5][8];
+            double likelihood[][] = new double[5][8];
 
             double count;
             //System.out.println("");
@@ -277,7 +277,7 @@ public class PengenalanPola {
                                     count++;
                                 }
                             }
-                            dataTestinClass[i][j] = count / count1;
+                            likelihood[i][j] = count / count1;
                             break;
                         case 1:
                             for (int k = 0; k < count2; k++) {    
@@ -285,7 +285,7 @@ public class PengenalanPola {
                                     count++;
                                 }
                             }
-                            dataTestinClass[i][j] = count / count2;
+                            likelihood[i][j] = count / count2;
                             break;
                         case 2:
                             for (int k = 0; k < count3; k++) {    
@@ -293,7 +293,7 @@ public class PengenalanPola {
                                     count++;
                                 }
                             }
-                            dataTestinClass[i][j] = count / count3;
+                            likelihood[i][j] = count / count3;
                             break;
                         case 3:
                             for (int k = 0; k < count4; k++) {    
@@ -301,7 +301,7 @@ public class PengenalanPola {
                                     count++;
                                 }
                             }
-                            dataTestinClass[i][j] = count / count4;
+                            likelihood[i][j] = count / count4;
                             break;
                         case 4:
                             for (int k = 0; k < count5; k++) {    
@@ -309,7 +309,7 @@ public class PengenalanPola {
                                     count++;
                                 }
                             }
-                            dataTestinClass[i][j] = count / count5;
+                            likelihood[i][j] = count / count5;
                             break;
                         default:
                             break;
@@ -331,14 +331,21 @@ public class PengenalanPola {
             System.out.println("");
             System.out.println("HASIL KELAS");
             
-            
+            double prior[] = new double[5];
+            double total = count1+count2+count3+count4+count5;
+            prior[0] = count1 / total;
+            prior[1] = count2 / total;
+            prior[2] = count3 / total;
+            prior[3] = count4 / total;
+            prior[4] = count5 / total;
             
             
             for (int i = 0; i < 5; i++) {
                 pIn[i] = 1;
                 for (int j = 0; j < 8; j++) {
-                    pIn[i] *= dataTestinClass[i][j];
+                    pIn[i] *= likelihood[i][j];
                 }
+                pIn[i] *= prior[i];
                 System.out.println("Kelas " + (i+1) + " = " + pIn[i]);
             }
             System.out.println("");
